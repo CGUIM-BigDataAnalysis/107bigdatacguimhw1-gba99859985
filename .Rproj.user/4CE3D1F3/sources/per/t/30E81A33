@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1558590622190.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "30E81A33",
+    "lastKnownWriteTime" : 3184664185744208694,
+    "last_content_update" : 1558590622190,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "7116F616",
+        "caption" : "genderPay_103",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=genderPay_103&cache_key=7116F616",
+        "displayedObservations" : 140,
+        "environment" : "",
+        "expression" : "genderPay_103",
+        "object" : "genderPay_103",
+        "preview" : 0,
+        "totalObservations" : 140,
+        "variables" : 2
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

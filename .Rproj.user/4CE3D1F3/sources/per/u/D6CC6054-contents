@@ -1,0 +1,47 @@
+library(SportsAnalytics)
+nba1819<-fetch_NBAPlayerStatistics("18-19")
+library(ggplot2)
+qplot(Steals,TotalRebounds,data=nba1819)
+ggplot(nba1819,aes(x = Steals, 
+                   y = TotalRebounds))+geom_point()+geom_smooth()
+
+cor(x=nba1819$Steals,y = nba1819$TotalRebounds)
+library(readr)
+k201803<-read_csv("C:\\Users\\dennis316\\Desktop\\201803.csv")
+k201803<-k201803[-(1:2),]
+filter1<-filter(k201803,`縣 市 別`=="桃園市")
+filter1
+ggplot(k201803,aes(x = 總計家數,
+                   y =總計資本額))+geom_point()+geom_smooth()
+c<-cor(x = k201803$總計家數,y = k201803$總計資本額)
+library(jsonlite)
+
+animal<-fromJSON("http://data.coa.gov.tw/Service/OpenData/AnimalOpenData.aspx")
+
+animal
+library(dplyr)
+animal.mean<-group_by(animal,animal_kind,收容所=shelter_name)%>%count()
+animal.mean
+ggplot()+geom_bar(data=animal.mean,
+                                             aes(x=收容所,y=n),
+                                             stat = "identity")+theme_light()+facet_grid(.~animal_kind)+labs(x="收容所",y="動物數量")+coord_flip()
+pay103
+
+
+
+
+
+library(readr)
+work103<-read_csv("C:\\Users\\dennis316\\Desktop\\work103.csv")
+work106<-read_csv("C:\\Users\\dennis316\\Desktop\\work104.csv")
+work104<-read_csv("C:\\Users\\dennis316\\Desktop\\work105.csv")
+work105<-read_csv("C:\\Users\\dennis316\\Desktop\\work106.csv")
+propay<-data.frame(
+  title=work103$行業別,
+  pro103=work103$`專業人員-薪資`,
+  pro104=work104$`專業人員-薪資`,
+  pro105=work105$`專業人員-薪資`,
+  pro106=work106$`專業人員-薪資`
+)
+
+ggplot(propay,aes(x = title,y = pro103))+geom_line()

@@ -12,55 +12,149 @@ author: put your name here
 ```{r dataload}
 library(jsonlite)
 library(dplyr)
+library(readr)
+pay103<-read_csv("C:\\Users\\dennis316\\Desktop\\103pay.csv")
+pay104<-read_csv("C:\\Users\\dennis316\\Desktop\\104pay.csv")
+pay105<-read_csv("C:\\Users\\dennis316\\Desktop\\105pay.csv")
+pay106<-read_csv("C:\\Users\\dennis316\\Desktop\\106pay.csv")
 #fromjson()
 #inner_join()
 ```
 
 ### 106年度薪資較103年度薪資高的職業有哪些? 
+"運輸及倉儲業-基層技術工及勞力工"是提升比例最高的，薪水加了大概3000元左右,但"專業、科學及技術服務業-專業人員"
+卻加了3500元左右，所以提升比例最高的，並不一定是最賺的。
 ```{r compare103106}
-#這是R Code Chunk
+hw1<-data.frame(
+  title=pay103$大職業別,
+  pay_106=pay106$`經常性薪資-薪資`,
+  pay_103=pay103$`經常性薪資-薪資`,
+  rise_up=pay106$`經常性薪資-薪資`/pay103$`經常性薪資-薪資`
+  )
+hw1<-hw1[order(hw1$rise_up,decreasing=T),]
+knitr::kable(head(hw1,10))
 ```
 
 ### 提高超過5%的的職業有哪些? 
 ```{r over5}
-#這是R Code Chunk
+hw1_2<-subset(hw1,rise_up>1.05)
+knitr::kable(hw1_2)
 ```
 
 ### 主要的職業種別是哪些種類呢?
 ```{r mainType}
-#這是R Code Chunk
+hw1_2$title<-as.character(hw1_2$title)
+k<-c(strsplit(hw1_2$title,"-"))
+mainJob<-c()
+for(n in 1:88){
+  mainJob<-c(mainJob,k[[n]][1])
+}
+table(mainJob)
 ```
 
 ## 男女同工不同酬現況分析
 
 男女同工不同酬一直是性別平等中很重要的問題，分析資料來源為103到106年度的大學畢業薪資。
+將103~106年的男女比結合在一起，排序出前10筆資料
+在分析中"技藝、機械設備操作及組裝人員"在前10筆資料就佔了6筆
+
+而女生薪資比男生多的前10筆資料，"服務及銷售工作人員"，也佔了5筆，可以看出男女在各職業場的優勢
+
+但是560筆資料中，女生薪資超過男生薪資的資料卻只佔了不超過30筆，可見其不公平程度
 
 ### 103到106年度的大學畢業薪資資料，哪些行業男生薪資比女生薪資多?
 ```{r male}
-#這是R Code Chunk
+library(readr)
+k103<-paste(c(pay103$大職業別),"103")
+k104<-paste(c(pay103$大職業別),"104")
+k105<-paste(c(pay103$大職業別),"105")
+k106<-paste(c(pay103$大職業別),"106")
+gender103<-pay103$`大學-女/男`
+gender104<-pay104$`大學-女/男`
+gender105<-pay105$`大學-女/男`
+gender106<-pay106$`大學-女/男`
+k_all<-c(k103,k104,k105,k106)
+genderPay_all<-c(gender103,gender104,gender105,gender106)
+genderPay_all<-iconv(genderPay_all,"WINDOWS-1252","UTF-8")
+genderPay_all<-as.numeric(genderPay_all)
+genderPay<-data.frame(
+  title=k_all,
+  genderPay=genderPay_all
+)
+
+genderPay<-genderPay[order(genderPay$genderPay,decreasing = F),]
+knitr::kable(head(genderPay,10))
 ```
+
 ### 哪些行業女生薪資比男生薪資多? 
 ```{r female}
-#這是R Code Chunk
+
+genderPay<-genderPay[order(genderPay$genderPay,decreasing = T),]
+knitr::kable(head(genderPay,10))
+
 ```
 
 ## 研究所薪資差異
 
 以106年度的資料來看，哪個職業別念研究所最划算呢 (研究所學歷薪資與大學學歷薪資增加比例最多)?
- 
+
+首先將pay106中大學-薪資和研究所及以上-薪資的空字串運用gsub()轉換成1，
+
+再用as.numeric()轉換為數字
+
+再用round將小數點簡化為5位數
+
+最後用order()排序
+
+從比例來看"礦業及土石採取業-事務支援人員"念研究所最划算，但念研究所也是要花錢以及時間的，連成長金額也考慮或許才值得。
+
 ```{r grad}
-#這是R Code Chunk
+colPay<-gsub("—",1,pay106$`大學-薪資`)
+mastPay<-gsub("—",1,pay106$`研究所及以上-薪資`)
+colPay<-as.numeric(colPay)
+mastPay<-as.numeric(mastPay)
+riseup<-round(mastPay/colPay,digits = 5)
+studyGet<-data.frame(
+  title=pay106$大職業別,
+  colPay=colPay,
+  mastPay=mastPay,
+  rise_up=riseup
+)
+studyGet<-studyGet[order(studyGet$rise_up,decreasing = T),]
+knitr::kable(head(studyGet,10))
 ```
 
 ## 我有興趣的職業別薪資狀況分析
 
 ### 有興趣的職業別篩選，呈現薪資
 ```{r like}
-#這是R Code Chunk
+
+loveWork<-data.frame(
+  title=pay106$大職業別,
+  col_pay=pay106$`大學-薪資`,
+  mast_pay=pay106$`研究所及以上-薪資`
+        )
+loveWork<-loveWork[grep("資訊及通訊傳播業",loveWork$title),]
+knitr::kable(loveWork)
 ```
 
 ### 這些職業別研究所薪資與大學薪資差多少呢？
+直接使用as.numeric會產生錯誤
+
+因此用iconv()轉換編碼，雖然會warning但能夠執行
+
+我有興趣的職業裡，讀研究所後提升的薪資約為3000~5000左右，但我認為擁有兩年的實際經驗或許可收穫更多，因此不會改變我不讀研究所的心意。
 ```{r likeGrad}
-#這是R Code Chunk
+loveWork$mast_pay<-iconv(loveWork$mast_pay,"WINDOWS-1252","UTF-8")
+loveWork$col_pay<-iconv(loveWork$col_pay,"WINDOWS-1252","UTF-8")
+loveWork$mast_pay<-as.numeric(loveWork$mast_pay)
+loveWork$col_pay<-as.numeric(loveWork$col_pay)
+c<-c(loveWork$mast_pay-loveWork$col_pay)
+c<-c(loveWork$mast_pay-loveWork$col_pay)
+XG<-data.frame(
+  title=loveWork$title,
+  XG=c
+)
+knitr::kable(XG) 
 ```
 

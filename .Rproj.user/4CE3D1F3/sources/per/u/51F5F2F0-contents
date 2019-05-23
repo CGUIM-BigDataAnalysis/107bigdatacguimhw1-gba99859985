@@ -1,0 +1,24 @@
+pay103$`研究所及以上-薪資`
+loveWork<-data.frame(
+  title=pay106$大職業別,
+  col_pay=pay106$`大學-薪資`,
+  mast_pay=pay106$`研究所及以上-薪資`
+  
+        )
+
+loveWork<-loveWork[grep("資訊及通訊傳播業",loveWork$title),]
+loveWork
+loveWork$mast_pay<-iconv(loveWork$mast_pay,"WINDOWS-1252","UTF-8")
+loveWork$col_pay<-iconv(loveWork$col_pay,"WINDOWS-1252","UTF-8")
+loveWork$mast_pay<-as.numeric(loveWork$mast_pay)
+loveWork$col_pay<-as.numeric(loveWork$col_pay)
+
+
+c<-c(loveWork$mast_pay-loveWork$col_pay)
+XG<-data.frame(
+  title=loveWork$title,
+  XG=c
+)
+XG                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+loveWork$mast_pay
+loveWork$col_pay

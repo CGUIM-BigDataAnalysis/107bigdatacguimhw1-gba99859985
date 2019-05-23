@@ -1,0 +1,41 @@
+*851genderPay<-data.frame(
+  title=pay103$大職業別,
+  gender103=pay103$`大學-女/男`,
+  gender104=pay104$`大學-女/男`,
+  gender105=pay105$`大學-女/男`,
+  gender106=pay106$`大學-女/男`
+  
+)
+K<-c()
+K<-paste(pay103$`大學-女/男,"103",sep = '')
+
+genderPay_103<-data.frame(
+  title103=pay103$大職業別"103",
+  gender103=paste(pay103$`大學-女/男,"103",sep = "")
+  
+  )
+genderPay_103
+genderPay_103<-genderPay_103[order(genderPay_103$gender103),]
+
+genderPay_104<-data.frame(
+  title104=pay104$大職業別,
+  gender104=pay104$`大學-女/男`
+)
+
+
+
+genderPay_103$gender103<-as.numeric(genderPay_103$gender103)
+genderPay_103<-genderPay_103[order(genderPay_103$gender103),]
+genderPay_103
+
+
+
+genderPay
+pay103$`經常性薪資-女/男`
+genderPay_103$gender103<-as.numeric(genderPay_103$gender103)
+genderPay_103<-genderPay_103[order(genderPay_103$gender103,decreasing=T),]
+head(genderPay_103)
+
+head(genderPay_103,10)
+genderPay_103
+genderPay_103<-subset(genderPay_103)

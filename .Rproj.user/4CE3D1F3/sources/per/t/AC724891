@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1558616064361.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AC724891",
+    "lastKnownWriteTime" : 3556447726851078235,
+    "last_content_update" : 1558616064361,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "13F30998",
+        "caption" : "mainJob",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=mainJob&cache_key=13F30998",
+        "displayedObservations" : 88,
+        "environment" : "",
+        "expression" : "mainJob",
+        "object" : "mainJob",
+        "preview" : 0,
+        "totalObservations" : 88,
+        "variables" : 1
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
